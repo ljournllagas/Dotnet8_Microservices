@@ -1,34 +1,48 @@
+using ExampleMinimal;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<TodoDb>(opt => opt.UseInMemoryDatabase("TodoList"));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure pipeline - UseMethod
+app.MapGet("/todoitems", async (TodoDb db) =>
+    await db.Todos.ToListAsync());
 
-app.UseHttpsRedirection();
+app.MapGet("/todoitems/{id}", async (int id, TodoDb db) =>
+    await db.Todos.FindAsync(id));
 
-var summaries = new[]
+app.MapPost("/todoitems", async (TodoItem todo, TodoDb db) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    db.Todos.Add(todo);
+    await db.SaveChangesAsync();
+    return Results.Created($"/todoitems/{todo.Id}", todo);
+});
 
-app.MapGet("/weatherforecast", () =>
+app.MapPut("/todoitems/{id}", async (int id, TodoItem inputTodo, TodoDb db) =>
 {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    var todo = await db.Todos.FindAsync(id);
+    if (todo == null) return Results.NotFound();
+    todo.Name = inputTodo.Name;
+    todo.IsComplete = inputTodo.IsComplete;
+    await db.SaveChangesAsync();
+    return Results.NoContent();
+});
+
+app.MapDelete("/todoitems/{id}", async (int id, TodoDb db) =>
+{
+    if (await db.Todos.FindAsync(id) is TodoItem todo)
+    {
+        db.Todos.Remove(todo);
+        await db.SaveChangesAsync();
+        return Results.NoContent();
+    }
+    return Results.NotFound();
 });
 
 app.Run();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+
