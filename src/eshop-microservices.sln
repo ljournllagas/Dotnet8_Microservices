@@ -7,7 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{AB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{24C6E89C-50E2-4A87-BB1C-4412BA623B52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "Catalog.API\Catalog.API.csproj", "{D8B408AA-D783-4294-AD03-0287506F1A8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "Catalog.API\Catalog.API.csproj", "{D8B408AA-D783-4294-AD03-0287506F1A8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{3C35D063-A6F6-44D1-AF2E-47446D550B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks", "BuildingBlocks\BuildingBlocks.csproj", "{03A37BFE-4D8D-48BB-A4D4-C7BBA93B6915}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +23,10 @@ Global
 		{D8B408AA-D783-4294-AD03-0287506F1A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8B408AA-D783-4294-AD03-0287506F1A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8B408AA-D783-4294-AD03-0287506F1A8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03A37BFE-4D8D-48BB-A4D4-C7BBA93B6915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03A37BFE-4D8D-48BB-A4D4-C7BBA93B6915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03A37BFE-4D8D-48BB-A4D4-C7BBA93B6915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03A37BFE-4D8D-48BB-A4D4-C7BBA93B6915}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -26,6 +34,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{24C6E89C-50E2-4A87-BB1C-4412BA623B52} = {AB8736E8-FCFA-45E0-A17D-17E23FEAE192}
 		{D8B408AA-D783-4294-AD03-0287506F1A8D} = {24C6E89C-50E2-4A87-BB1C-4412BA623B52}
+		{03A37BFE-4D8D-48BB-A4D4-C7BBA93B6915} = {3C35D063-A6F6-44D1-AF2E-47446D550B3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0CE2D08D-7BFA-46BE-8967-B349A0CFF6B6}
