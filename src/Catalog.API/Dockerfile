@@ -7,13 +7,14 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
+ARG PASSWORD_ENV_SEEDED
 WORKDIR /src
 COPY ["Catalog.API/Catalog.API.csproj", "Catalog.API/"]
 COPY ["BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/"]
+RUN dotnet dev-certs https --clean
 RUN dotnet restore "./Catalog.API/Catalog.API.csproj"
 COPY . .
 WORKDIR "/src/Catalog.API"
@@ -29,3 +30,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Catalog.API.dll"]
+
