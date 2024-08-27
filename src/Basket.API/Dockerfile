@@ -13,6 +13,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Basket.API/Basket.API.csproj", "Basket.API/"]
+COPY ["BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/"]
+RUN dotnet dev-certs https --clean
 RUN dotnet restore "./Basket.API/Basket.API.csproj"
 COPY . .
 WORKDIR "/src/Basket.API"
