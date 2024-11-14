@@ -1,15 +1,19 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace Ordering.Infrastructure;
 public static class DependenyInjection
 {
-    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services
-        ,IConfiguration configuration)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("Database");
 
+        services.AddDbContext<ApplicationDbContext>(options => 
+            options.UseSqlServer(connectionString));
 
+        //services.AddDbContext<
 
         return services;
     }
